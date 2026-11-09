@@ -125,6 +125,91 @@
             text-align: right;
         }
 
+        .winning-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 18px 24px;
+            margin-bottom: 18px;
+            padding: 20px 30px;
+            border: 1px solid #dce3d8;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.72);
+            box-shadow: 0 8px 24px rgba(44, 65, 45, 0.035);
+        }
+
+        .winning-info {
+            display: grid;
+            gap: 4px;
+        }
+
+        .winning-title-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .winning-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: var(--lime);
+            color: var(--green-dark);
+            font-size: 11px;
+            font-weight: 850;
+            letter-spacing: 0.02em;
+        }
+
+        .winning-title {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--ink);
+        }
+
+        .winning-date {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .winning-meta {
+            margin: 0;
+            color: #5d675d;
+            font-size: 12px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .winning-numbers {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 9px;
+        }
+
+        .bonus-plus {
+            margin: 0 2px;
+            color: #8c948b;
+            font-size: 16px;
+            font-weight: 800;
+            user-select: none;
+        }
+
+        .bonus-wrap {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .bonus-label {
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 750;
+        }
+
         .draw-area {
             padding: 27px 30px 29px;
             border: 1px solid #dce3d8;
@@ -370,6 +455,8 @@
             .intro { display: block; margin-bottom: 25px; }
             h1 { font-size: 34px; }
             .intro-note { margin-top: 12px; text-align: left; }
+            .winning-banner { padding: 18px 17px; gap: 14px; }
+            .winning-numbers { gap: 6px; }
             .draw-area { padding: 20px 17px 21px; }
             .draw-toolbar { align-items: stretch; flex-direction: column; gap: 14px; }
             .count-control { justify-content: space-between; }
@@ -406,6 +493,18 @@
                     <h1 id="page-title">이번 주 행운을<br>골라볼까요?</h1>
                 </div>
                 <p class="intro-note">1부터 45까지, 겹치지 않는 숫자 6개를 뽑아드려요.<br>가벼운 마음으로 행운을 확인해 보세요.</p>
+            </section>
+
+            <section class="winning-banner" aria-labelledby="winning-title">
+                <div class="winning-info">
+                    <div class="winning-title-row">
+                        <span class="winning-badge" id="winning-round">제1249회</span>
+                        <h2 class="winning-title" id="winning-title">전주 1등 당첨 번호</h2>
+                        <span class="winning-date" id="winning-date">2026. 11. 07. 추첨</span>
+                    </div>
+                    <p class="winning-meta" id="winning-meta">1등 14게임 · 당첨금 각 2,025,045,509원</p>
+                </div>
+                <div class="winning-numbers" id="winning-numbers" aria-label="전주 1등 당첨 번호 및 보너스 번호"></div>
             </section>
 
             <section class="draw-area" aria-label="로또 번호 추첨">
@@ -458,9 +557,87 @@
         const historyList = document.querySelector("#history-list");
         const copyButton = document.querySelector("#copy-button");
         const clearButton = document.querySelector("#clear-button");
+        const winningRoundElement = document.querySelector("#winning-round");
+        const winningDateElement = document.querySelector("#winning-date");
+        const winningMetaElement = document.querySelector("#winning-meta");
+        const winningNumbersElement = document.querySelector("#winning-numbers");
+
+        const fallbackWinningData = {
+            draw_no: 1249,
+            numbers: [2, 11, 16, 25, 34, 35],
+            bonus_no: 14,
+            date: "2026-11-07T00:00:00Z",
+            divisions: [{ prize: 2025045509, winners: 14 }]
+        };
+
         let selectedCount = 1;
         let latestDraw = null;
         let drawHistory = loadHistory();
+
+        function formatDrawDate(isoString) {
+            const date = new Date(isoString);
+            if (Number.isNaN(date.getTime())) return "";
+            const year = date.getUTCFullYear();
+            const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+            const day = String(date.getUTCDate()).padStart(2, "0");
+            return `${year}. ${month}. ${day}. 추첨`;
+        }
+
+        function renderWinningResult(data) {
+            if (!data || !Array.isArray(data.numbers)) return;
+            winningRoundElement.textContent = `제${data.draw_no}회`;
+            winningDateElement.textContent = formatDrawDate(data.date);
+
+            const firstDivision = Array.isArray(data.divisions) ? data.divisions[0] : null;
+            if (firstDivision && typeof firstDivision.prize === "number" && typeof firstDivision.winners === "number") {
+                const formattedPrize = new Intl.NumberFormat("ko-KR").format(firstDivision.prize);
+                winningMetaElement.textContent = `1등 ${firstDivision.winners}게임 · 당첨금 각 ${formattedPrize}원`;
+            } else {
+                winningMetaElement.textContent = "1등 당첨 번호와 보너스 번호";
+            }
+
+            winningNumbersElement.replaceChildren();
+            data.numbers.forEach((number) => {
+                winningNumbersElement.append(createBall(number));
+            });
+
+            if (Number.isInteger(data.bonus_no)) {
+                const plus = document.createElement("span");
+                plus.className = "bonus-plus";
+                plus.setAttribute("aria-hidden", "true");
+                plus.textContent = "+";
+
+                const bonusWrap = document.createElement("span");
+                bonusWrap.className = "bonus-wrap";
+                const bonusBall = createBall(data.bonus_no);
+                bonusBall.setAttribute("aria-label", `보너스 번호 ${data.bonus_no}번`);
+                const bonusLabel = document.createElement("span");
+                bonusLabel.className = "bonus-label";
+                bonusLabel.textContent = "보너스";
+                bonusWrap.append(bonusBall, bonusLabel);
+
+                winningNumbersElement.append(plus, bonusWrap);
+            }
+        }
+
+        async function loadWinningResult() {
+            renderWinningResult(fallbackWinningData);
+            try {
+                const response = await fetch("https://smok95.github.io/lotto/results/latest.json");
+                if (!response.ok) return;
+                const data = await response.json();
+                if (
+                    data &&
+                    Number.isInteger(data.draw_no) &&
+                    Array.isArray(data.numbers) &&
+                    data.numbers.length === 6
+                ) {
+                    renderWinningResult(data);
+                }
+            } catch {
+                // 네트워크 오류 시 기본 내장된 최신 회차 정보를 유지합니다.
+            }
+        }
 
         function loadHistory() {
             try {
@@ -625,6 +802,7 @@
         });
 
         if (drawHistory.length > 0) latestDraw = drawHistory[0];
+        loadWinningResult();
         renderResults();
         renderHistory();
     </script>
