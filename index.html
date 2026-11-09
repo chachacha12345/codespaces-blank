@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +23,9 @@
             --gray-ball: #959ba2;
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             margin: 0;
@@ -35,7 +38,9 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        button { font: inherit; }
+        button {
+            font: inherit;
+        }
 
         .page-shell {
             width: min(100% - 48px, 1040px);
@@ -91,7 +96,9 @@
             content: "";
         }
 
-        main { padding: 55px 0 74px; }
+        main {
+            padding: 55px 0 74px;
+        }
 
         .intro {
             display: flex;
@@ -266,6 +273,64 @@
             box-shadow: 0 1px 4px rgba(25, 45, 28, 0.13);
         }
 
+        .fixed-picker {
+            margin: 4px 0 22px;
+            padding: 16px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--white);
+        }
+
+        .fixed-picker-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .fixed-picker-hint {
+            margin: 2px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(9, minmax(0, 1fr));
+            gap: 6px;
+        }
+
+        .number-button {
+            height: 34px;
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            background: var(--white);
+            color: #4a544a;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            aspect-ratio: 1;
+            justify-self: center;
+        }
+
+        .number-button[aria-pressed="true"] {
+            border-color: var(--green);
+            background: var(--green);
+            color: var(--white);
+        }
+
+        .number-button:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .ball.fixed {
+            outline: 2px solid var(--ink);
+            outline-offset: 2px;
+        }
+
+        .number-button:focus-visible,
         .count-button:focus-visible,
         .primary-button:focus-visible,
         .text-button:focus-visible {
@@ -290,10 +355,18 @@
             transition: background 160ms ease, transform 160ms ease;
         }
 
-        .primary-button:hover { background: var(--green-dark); }
-        .primary-button:active { transform: translateY(1px); }
+        .primary-button:hover {
+            background: var(--green-dark);
+        }
 
-        .primary-button svg { width: 17px; height: 17px; }
+        .primary-button:active {
+            transform: translateY(1px);
+        }
+
+        .primary-button svg {
+            width: 17px;
+            height: 17px;
+        }
 
         .result-heading {
             display: flex;
@@ -315,7 +388,10 @@
             font-size: 12px;
         }
 
-        .results { display: grid; gap: 13px; }
+        .results {
+            display: grid;
+            gap: 13px;
+        }
 
         .result-row {
             min-height: 71px;
@@ -327,7 +403,9 @@
             animation: arrive 300ms both;
         }
 
-        .result-row:last-child { border-bottom: 0; }
+        .result-row:last-child {
+            border-bottom: 0;
+        }
 
         .result-index {
             width: 27px;
@@ -337,7 +415,11 @@
             font-weight: 750;
         }
 
-        .balls { display: flex; flex-wrap: wrap; gap: 9px; }
+        .balls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+        }
 
         .ball {
             width: 44px;
@@ -354,11 +436,26 @@
             box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.08), 0 2px 4px rgba(28, 36, 28, 0.1);
         }
 
-        .ball-1 { background: var(--yellow); color: #42351a; }
-        .ball-2 { background: var(--blue); }
-        .ball-3 { background: var(--coral); }
-        .ball-4 { background: var(--gray-ball); }
-        .ball-5 { background: #66a878; }
+        .ball-1 {
+            background: var(--yellow);
+            color: #42351a;
+        }
+
+        .ball-2 {
+            background: var(--blue);
+        }
+
+        .ball-3 {
+            background: var(--coral);
+        }
+
+        .ball-4 {
+            background: var(--gray-ball);
+        }
+
+        .ball-5 {
+            background: #66a878;
+        }
 
         .empty-state {
             min-height: 110px;
@@ -387,9 +484,14 @@
             font-weight: 750;
         }
 
-        .text-button:disabled { color: #aab1a9; cursor: default; }
+        .text-button:disabled {
+            color: #aab1a9;
+            cursor: default;
+        }
 
-        .history-section { margin-top: 43px; }
+        .history-section {
+            margin-top: 43px;
+        }
 
         .history-heading {
             display: flex;
@@ -399,9 +501,13 @@
             border-bottom: 1px solid rgba(32, 40, 32, 0.16);
         }
 
-        .history-heading h2 { font-size: 16px; }
+        .history-heading h2 {
+            font-size: 16px;
+        }
 
-        .history-list { display: grid; }
+        .history-list {
+            display: grid;
+        }
 
         .history-entry {
             display: grid;
@@ -419,10 +525,27 @@
             font-variant-numeric: tabular-nums;
         }
 
-        .history-lines { display: grid; gap: 8px; }
-        .history-line { display: flex; align-items: center; gap: 7px; }
-        .history-line .result-index { width: 20px; flex-basis: 20px; font-size: 10px; }
-        .history-line .balls { gap: 5px; }
+        .history-lines {
+            display: grid;
+            gap: 8px;
+        }
+
+        .history-line {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .history-line .result-index {
+            width: 20px;
+            flex-basis: 20px;
+            font-size: 10px;
+        }
+
+        .history-line .balls {
+            gap: 5px;
+        }
+
         .history-line .ball {
             width: 26px;
             flex-basis: 26px;
@@ -444,38 +567,121 @@
         }
 
         @keyframes arrive {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 640px) {
-            .page-shell { width: min(100% - 32px, 500px); }
-            .topbar { height: 68px; }
-            main { padding: 38px 0 52px; }
-            .intro { display: block; margin-bottom: 25px; }
-            h1 { font-size: 34px; }
-            .intro-note { margin-top: 12px; text-align: left; }
-            .winning-banner { padding: 18px 17px; gap: 14px; }
-            .winning-numbers { gap: 6px; }
-            .draw-area { padding: 20px 17px 21px; }
-            .draw-toolbar { align-items: stretch; flex-direction: column; gap: 14px; }
-            .count-control { justify-content: space-between; }
-            .primary-button { width: 100%; }
-            .result-row { gap: 5px; }
-            .result-index { width: 22px; flex-basis: 22px; }
-            .balls { gap: 6px; }
-            .ball { width: 39px; flex-basis: 39px; font-size: 14px; }
-            .history-entry { grid-template-columns: 1fr; gap: 9px; }
-            .history-time { padding-top: 0; }
-            .history-line .balls { gap: 4px; }
-            .history-line .ball { width: 25px; flex-basis: 25px; }
+            .page-shell {
+                width: min(100% - 32px, 500px);
+            }
+
+            .topbar {
+                height: 68px;
+            }
+
+            main {
+                padding: 38px 0 52px;
+            }
+
+            .intro {
+                display: block;
+                margin-bottom: 25px;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            .intro-note {
+                margin-top: 12px;
+                text-align: left;
+            }
+
+            .winning-banner {
+                padding: 18px 17px;
+                gap: 14px;
+            }
+
+            .winning-numbers {
+                gap: 6px;
+            }
+
+            .draw-area {
+                padding: 20px 17px 21px;
+            }
+
+            .draw-toolbar {
+                align-items: stretch;
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            .count-control {
+                justify-content: space-between;
+            }
+
+            .primary-button {
+                width: 100%;
+            }
+
+            .result-row {
+                gap: 5px;
+            }
+
+            .result-index {
+                width: 22px;
+                flex-basis: 22px;
+            }
+
+            .balls {
+                gap: 6px;
+            }
+
+            .ball {
+                width: 39px;
+                flex-basis: 39px;
+                font-size: 14px;
+            }
+
+            .history-entry {
+                grid-template-columns: 1fr;
+                gap: 9px;
+            }
+
+            .history-time {
+                padding-top: 0;
+            }
+
+            .history-line .balls {
+                gap: 4px;
+            }
+
+            .history-line .ball {
+                width: 25px;
+                flex-basis: 25px;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="page-shell">
         <header class="topbar">
@@ -519,10 +725,24 @@
                     </div>
                     <button class="primary-button" id="draw-button" type="button">
                         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                            <path d="M20 7v5h-5M4.9 9a7.5 7.5 0 0 1 12.4-2L20 12M4 17v-5h5m10.1 3a7.5 7.5 0 0 1-12.4 2L4 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path
+                                d="M20 7v5h-5M4.9 9a7.5 7.5 0 0 1 12.4-2L20 12M4 17v-5h5m10.1 3a7.5 7.5 0 0 1-12.4 2L4 12"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                stroke-linejoin="round" />
                         </svg>
                         번호 뽑기
                     </button>
+                </div>
+
+                <div class="fixed-picker">
+                    <div class="fixed-picker-head">
+                        <div>
+                            <span class="control-label" id="fixed-label">고정할 번호 (최대 5개)</span>
+                            <p class="fixed-picker-hint" id="fixed-hint">선택한 번호는 모든 게임에 포함되고, 나머지만 랜덤으로 뽑아요.</p>
+                        </div>
+                        <button class="text-button" id="fixed-clear-button" type="button" disabled>선택 해제</button>
+                    </div>
+                    <div class="number-grid" id="number-grid" role="group" aria-labelledby="fixed-label"></div>
                 </div>
 
                 <div class="result-heading">
@@ -569,6 +789,12 @@
             date: "2026-11-07T00:00:00Z",
             divisions: [{ prize: 2025045509, winners: 14 }]
         };
+
+        const maxFixed = 5;
+        const fixedNumbers = new Set();
+        const numberGrid = document.querySelector("#number-grid");
+        const fixedHint = document.querySelector("#fixed-hint");
+        const fixedClearButton = document.querySelector("#fixed-clear-button");
 
         let selectedCount = 1;
         let latestDraw = null;
@@ -662,12 +888,50 @@
         }
 
         function createGame() {
-            const numbers = Array.from({ length: 45 }, (_, index) => index + 1);
+            const fixed = [...fixedNumbers];
+            const numbers = Array.from({ length: 45 }, (_, index) => index + 1)
+                .filter((number) => !fixedNumbers.has(number));
             for (let index = numbers.length - 1; index > 0; index -= 1) {
                 const swapIndex = Math.floor(Math.random() * (index + 1));
                 [numbers[index], numbers[swapIndex]] = [numbers[swapIndex], numbers[index]];
             }
-            return numbers.slice(0, 6).sort((a, b) => a - b);
+            return [...fixed, ...numbers.slice(0, 6 - fixed.length)].sort((a, b) => a - b);
+        }
+
+        function renderNumberGrid() {
+            const full = fixedNumbers.size >= maxFixed;
+            numberGrid.querySelectorAll(".number-button").forEach((button) => {
+                const number = Number(button.dataset.number);
+                const pressed = fixedNumbers.has(number);
+                button.setAttribute("aria-pressed", String(pressed));
+                button.disabled = full && !pressed;
+            });
+            fixedClearButton.disabled = fixedNumbers.size === 0;
+            fixedHint.textContent = fixedNumbers.size === 0
+                ? "선택한 번호는 모든 게임에 포함되고, 나머지만 랜덤으로 뽑아요."
+                : `고정 ${fixedNumbers.size}개 · 나머지 ${6 - fixedNumbers.size}개는 랜덤으로 뽑아요.`;
+        }
+
+        function buildNumberGrid() {
+            for (let number = 1; number <= 45; number += 1) {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "number-button";
+                button.dataset.number = String(number);
+                button.textContent = String(number);
+                button.setAttribute("aria-label", `${number}번 고정`);
+                button.addEventListener("click", () => {
+                    if (fixedNumbers.has(number)) fixedNumbers.delete(number);
+                    else if (fixedNumbers.size < maxFixed) fixedNumbers.add(number);
+                    renderNumberGrid();
+                });
+                numberGrid.append(button);
+            }
+            fixedClearButton.addEventListener("click", () => {
+                fixedNumbers.clear();
+                renderNumberGrid();
+            });
+            renderNumberGrid();
         }
 
         function ballColor(number) {
@@ -700,7 +964,15 @@
 
                 const balls = document.createElement("div");
                 balls.className = "balls";
-                game.forEach((number) => balls.append(createBall(number)));
+                const fixedInGame = compact ? [] : (latestDraw?.fixed || []);
+                game.forEach((number) => {
+                    const ball = createBall(number);
+                    if (fixedInGame.includes(number)) {
+                        ball.classList.add("fixed");
+                        ball.setAttribute("aria-label", `${number}번 (고정)`);
+                    }
+                    balls.append(ball);
+                });
                 row.append(label, balls);
                 container.append(row);
             });
@@ -714,7 +986,10 @@
                 return;
             }
             renderGames(resultsElement, latestDraw.games);
-            resultCaption.textContent = `${latestDraw.games.length}게임을 뽑았어요`;
+            const fixedCount = latestDraw.fixed?.length || 0;
+            resultCaption.textContent = fixedCount > 0
+                ? `${latestDraw.games.length}게임을 뽑았어요 · 고정 번호 ${latestDraw.fixed.join(", ")}`
+                : `${latestDraw.games.length}게임을 뽑았어요`;
             copyButton.disabled = false;
         }
 
@@ -758,6 +1033,7 @@
         document.querySelector("#draw-button").addEventListener("click", () => {
             latestDraw = {
                 createdAt: new Date().toISOString(),
+                fixed: [...fixedNumbers].sort((a, b) => a - b),
                 games: Array.from({ length: selectedCount }, createGame)
             };
             drawHistory.unshift(latestDraw);
@@ -802,9 +1078,11 @@
         });
 
         if (drawHistory.length > 0) latestDraw = drawHistory[0];
+        buildNumberGrid();
         loadWinningResult();
         renderResults();
         renderHistory();
     </script>
 </body>
+
 </html>
